@@ -2,41 +2,81 @@
 @tailwind components;
 @tailwind utilities;
 
-/* Definition of the design system. All colors, gradients, fonts, etc should be defined here. 
-All colors MUST be HSL.
-*/
-
+/* NEXUS Design System - Professional AI Platform */
 @layer base {
   :root {
+    /* Core Brand Colors */
     --background: 0 0% 100%;
-    --foreground: 222.2 84% 4.9%;
+    --foreground: 224 15% 12%;
 
+    /* Primary - Intelligent Blue */
+    --primary: 224 76% 48%;
+    --primary-foreground: 0 0% 98%;
+    --primary-glow: 224 100% 65%;
+
+    /* Secondary - Neural Purple */
+    --secondary: 270 60% 45%;
+    --secondary-foreground: 0 0% 98%;
+    --secondary-glow: 270 100% 70%;
+
+    /* Accent - Innovation Cyan */
+    --accent: 194 77% 52%;
+    --accent-foreground: 0 0% 98%;
+    --accent-glow: 194 100% 65%;
+
+    /* Success - Knowledge Green */
+    --success: 142 72% 29%;
+    --success-foreground: 0 0% 98%;
+    --success-glow: 142 85% 45%;
+
+    /* Warning - Alert Orange */
+    --warning: 32 98% 52%;
+    --warning-foreground: 0 0% 98%;
+
+    /* Destructive - Error Red */
+    --destructive: 0 72% 51%;
+    --destructive-foreground: 0 0% 98%;
+
+    /* Neutral System */
     --card: 0 0% 100%;
-    --card-foreground: 222.2 84% 4.9%;
-
+    --card-foreground: 224 15% 12%;
     --popover: 0 0% 100%;
-    --popover-foreground: 222.2 84% 4.9%;
+    --popover-foreground: 224 15% 12%;
+    --muted: 210 40% 96%;
+    --muted-foreground: 215 16% 47%;
+    --border: 214 32% 91%;
+    --input: 214 32% 91%;
+    --ring: 224 76% 48%;
 
-    --primary: 222.2 47.4% 11.2%;
-    --primary-foreground: 210 40% 98%;
+    /* Expert Status Colors */
+    --expert-online: 142 72% 29%;
+    --expert-responding: 32 98% 52%;
+    --expert-offline: 215 16% 47%;
 
-    --secondary: 210 40% 96.1%;
-    --secondary-foreground: 222.2 47.4% 11.2%;
+    /* Knowledge Graph Colors */
+    --node-tacit: 224 76% 48%;
+    --node-technical: 32 98% 52%;
+    --node-research: 142 72% 29%;
+    --node-convergent: 270 60% 45%;
 
-    --muted: 210 40% 96.1%;
-    --muted-foreground: 215.4 16.3% 46.9%;
+    /* Advanced Design Tokens */
+    --gradient-primary: linear-gradient(135deg, hsl(var(--primary)), hsl(var(--primary-glow)));
+    --gradient-secondary: linear-gradient(135deg, hsl(var(--secondary)), hsl(var(--secondary-glow)));
+    --gradient-hero: linear-gradient(135deg, hsl(var(--primary)) 0%, hsl(var(--secondary)) 50%, hsl(var(--accent)) 100%);
+    --gradient-knowledge: linear-gradient(45deg, hsl(var(--primary) / 0.1), hsl(var(--accent) / 0.1));
+    --gradient-card: linear-gradient(145deg, hsl(var(--card)), hsl(var(--muted) / 0.3));
 
-    --accent: 210 40% 96.1%;
-    --accent-foreground: 222.2 47.4% 11.2%;
+    /* Shadows */
+    --shadow-elegant: 0 10px 30px -10px hsl(var(--primary) / 0.3);
+    --shadow-glow: 0 0 40px hsl(var(--primary-glow) / 0.4);
+    --shadow-card: 0 4px 20px -4px hsl(var(--foreground) / 0.1);
+    --shadow-knowledge: 0 8px 32px -8px hsl(var(--accent) / 0.3);
 
-    --destructive: 0 84.2% 60.2%;
-    --destructive-foreground: 210 40% 98%;
+    /* Animations */
+    --transition-smooth: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    --transition-bounce: all 0.4s cubic-bezier(0.68, -0.55, 0.265, 1.55);
 
-    --border: 214.3 31.8% 91.4%;
-    --input: 214.3 31.8% 91.4%;
-    --ring: 222.2 84% 4.9%;
-
-    --radius: 0.5rem;
+    --radius: 0.75rem;
 
     --sidebar-background: 0 0% 98%;
 
@@ -100,6 +140,129 @@ All colors MUST be HSL.
   }
 
   body {
-    @apply bg-background text-foreground;
+    @apply bg-background text-foreground font-sans antialiased;
+  }
+}
+
+@layer components {
+  /* Custom Component Styles */
+  .nexus-card {
+    @apply bg-card rounded-xl shadow-lg border border-border/50 transition-all duration-300;
+    background: var(--gradient-card);
+    box-shadow: var(--shadow-card);
+  }
+
+  .nexus-card:hover {
+    box-shadow: var(--shadow-elegant);
+    transform: translateY(-2px);
+  }
+
+  .nexus-button-primary {
+    @apply bg-primary text-primary-foreground rounded-lg px-6 py-3 font-semibold transition-all duration-300;
+    background: var(--gradient-primary);
+    box-shadow: var(--shadow-card);
+  }
+
+  .nexus-button-primary:hover {
+    box-shadow: var(--shadow-glow);
+    transform: translateY(-1px);
+  }
+
+  .nexus-button-secondary {
+    @apply bg-secondary text-secondary-foreground rounded-lg px-6 py-3 font-semibold transition-all duration-300;
+    background: var(--gradient-secondary);
+  }
+
+  .nexus-tab-active {
+    @apply text-primary-foreground font-semibold shadow-lg;
+    background: var(--gradient-primary);
+    box-shadow: var(--shadow-elegant);
+  }
+
+  .nexus-tab-inactive {
+    @apply bg-muted text-muted-foreground hover:bg-muted/80 transition-all duration-300;
+  }
+
+  .nexus-metric-card {
+    @apply nexus-card p-6 text-center;
+  }
+
+  .nexus-expert-status-online {
+    @apply w-3 h-3 rounded-full;
+    background-color: hsl(var(--expert-online));
+    box-shadow: 0 0 8px hsl(var(--expert-online) / 0.6);
+  }
+
+  .nexus-expert-status-responding {
+    @apply w-3 h-3 rounded-full animate-pulse;
+    background-color: hsl(var(--expert-responding));
+    box-shadow: 0 0 8px hsl(var(--expert-responding) / 0.6);
+  }
+
+  .nexus-expert-status-offline {
+    @apply w-3 h-3 rounded-full;
+    background-color: hsl(var(--expert-offline));
+  }
+
+  .nexus-knowledge-node-tacit {
+    fill: hsl(var(--node-tacit));
+  }
+
+  .nexus-knowledge-node-technical {
+    fill: hsl(var(--node-technical));
+  }
+
+  .nexus-knowledge-node-research {
+    fill: hsl(var(--node-research));
+  }
+
+  .nexus-knowledge-node-convergent {
+    fill: hsl(var(--node-convergent));
+  }
+
+  .nexus-gradient-text {
+    background: var(--gradient-hero);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+
+  .nexus-live-indicator {
+    @apply animate-pulse;
+    background: radial-gradient(circle, hsl(var(--destructive)), hsl(var(--destructive) / 0.3));
+    box-shadow: 0 0 16px hsl(var(--destructive) / 0.8);
+  }
+
+  .nexus-hero-background {
+    background: var(--gradient-knowledge);
+  }
+}
+
+@layer utilities {
+  .animate-float {
+    animation: float 6s ease-in-out infinite;
+  }
+
+  .animate-glow {
+    animation: glow 2s ease-in-out infinite alternate;
+  }
+
+  @keyframes float {
+    0%, 100% { transform: translateY(0px); }
+    50% { transform: translateY(-10px); }
+  }
+
+  @keyframes glow {
+    from { box-shadow: 0 0 20px hsl(var(--primary) / 0.5); }
+    to { box-shadow: 0 0 30px hsl(var(--primary) / 0.8); }
+  }
+
+  @keyframes pulse-soft {
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0.7; }
+  }
+
+  .animate-pulse-soft {
+    animation: pulse-soft 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
   }
 }
