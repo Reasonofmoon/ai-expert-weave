@@ -1,12 +1,14 @@
 import React, { useState, useEffect } from 'react';
 import { LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer, BarChart, Bar, Cell } from 'recharts';
-import { Brain, Users, Zap, TrendingUp, MessageCircle, CheckCircle, AlertTriangle, Search, Filter, Eye, GitBranch } from 'lucide-react';
+import { Brain, Users, Zap, TrendingUp, MessageCircle, CheckCircle, AlertTriangle, Search, Filter, Eye, GitBranch, Workflow, Target } from 'lucide-react';
 
 import { MetricCard } from './dashboard/MetricCard';
 import { ExpertCard } from './experts/ExpertCard';
 import { KnowledgeGraph } from './knowledge/KnowledgeGraph';
 import { TabButton } from './common/TabButton';
 import { ResponseModal } from './modals/ResponseModal';
+import { WorkflowLibrary } from './workflows/WorkflowLibrary';
+import { GrowthTracker } from './growth/GrowthTracker';
 
 export const NexusPrototype = () => {
   // State management
@@ -30,8 +32,8 @@ export const NexusPrototype = () => {
     {
       id: 47,
       date: "2024-08-20",
-      title: "AI가 창의적 글쓰기에서 인간을 대체할 수 있을까?",
-      category: "AI_Creativity",
+      title: "창의적 글쓰기에서 AI와 협업하는 최적 워크플로우는?",
+      category: "Creative_Workflow", 
       difficulty: 8.4,
       expectedParticipation: 78,
       status: "active",
@@ -303,6 +305,20 @@ Prompt chaining으로 AI에게 '의도'를 시뮬레이션하게 할 수 있습�
               onClick={() => setCurrentTab('knowledge')}
             />
             <TabButton
+              tab="workflows"
+              label="워크플로우"
+              icon={Workflow}
+              isActive={currentTab === 'workflows'}
+              onClick={() => setCurrentTab('workflows')}
+            />
+            <TabButton
+              tab="growth"
+              label="성장 추적"
+              icon={Target}
+              isActive={currentTab === 'growth'}
+              onClick={() => setCurrentTab('growth')}
+            />
+            <TabButton
               tab="algorithm"
               label="알고리즘"
               icon={Brain}
@@ -543,6 +559,101 @@ Prompt chaining으로 AI에게 '의도'를 시뮬레이션하게 할 수 있습�
           </div>
         )}
 
+        {currentTab === 'challenge' && (
+          <div className="space-y-6">
+            {/* Today's Challenge - Workflow Focused */}
+            <div className="nexus-card p-6 border-l-4 border-l-primary">
+              <div className="flex items-center justify-between mb-6">
+                <h2 className="text-xl font-bold text-foreground">🎯 오늘의 화두 (Day {platformDay})</h2>
+                <div className="flex items-center space-x-2">
+                  <div className="bg-primary/10 text-primary px-3 py-1 rounded-full text-sm font-medium">
+                    Creative_Workflow
+                  </div>
+                  <div className="bg-warning/10 text-warning px-3 py-1 rounded-full text-sm font-medium">
+                    난이도 8.4
+                  </div>
+                </div>
+              </div>
+              
+              <h3 className="text-2xl font-bold text-foreground mb-6">
+                {dailyChallenges[0].title}
+              </h3>
+              
+              <div className="grid grid-cols-3 gap-6 mb-6">
+                <div className="text-center p-4 bg-primary/5 rounded-lg">
+                  <div className="text-2xl font-bold text-primary">{dailyChallenges[0].expectedParticipation}%</div>
+                  <div className="text-sm text-muted-foreground">예상 참여율</div>
+                </div>
+                <div className="text-center p-4 bg-success/5 rounded-lg">
+                  <div className="text-2xl font-bold text-success">{dailyChallenges[0].responses}</div>
+                  <div className="text-sm text-muted-foreground">현재 응답</div>
+                </div>
+                <div className="text-center p-4 bg-warning/5 rounded-lg">
+                  <div className="text-2xl font-bold text-warning">진행중</div>
+                  <div className="text-sm text-muted-foreground">상태</div>
+                </div>
+              </div>
+
+              <div className="bg-primary/5 rounded-lg p-4">
+                <h4 className="font-bold text-primary mb-3">💡 강성진님의 "일머리" 통찰 적용</h4>
+                <div className="grid grid-cols-2 gap-4 text-sm">
+                  <div>
+                    <span className="text-muted-foreground">관련 워크플로우:</span>
+                    <span className="font-bold ml-2 text-foreground">3개</span>
+                  </div>
+                  <div>
+                    <span className="text-muted-foreground">실무 우선도:</span>
+                    <span className="font-bold ml-2 text-success">9.1/10</span>
+                  </div>
+                  <div>
+                    <span className="text-muted-foreground">예상 새로운 단계:</span>
+                    <span className="font-bold ml-2 text-foreground">5단계</span>
+                  </div>
+                  <div>
+                    <span className="text-muted-foreground">매칭된 전문가:</span>
+                    <span className="font-bold ml-2 text-foreground">5명</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            {/* Expert Responses Status */}
+            <div className="nexus-card p-6">
+              <h3 className="text-lg font-bold text-foreground mb-4">전문가 응답 현황</h3>
+              <div className="space-y-4">
+                {experts.slice(0, 2).map(expert => (
+                  <div key={expert.id} className="flex items-center justify-between p-4 bg-muted/10 rounded-lg">
+                    <div className="flex items-center space-x-3">
+                      <span className="text-2xl">{expert.avatar}</span>
+                      <div>
+                        <h4 className="font-bold text-foreground">{expert.name}</h4>
+                        <p className="text-sm text-muted-foreground">{expert.specialization.join(', ')}</p>
+                      </div>
+                    </div>
+                    <div className="text-right">
+                      {expertResponses[expert.id] ? (
+                        <div>
+                          <div className="text-success font-bold">워크플로우 제안 완료</div>
+                          <div className="text-sm text-muted-foreground">{expertResponses[expert.id].timestamp}</div>
+                        </div>
+                      ) : (
+                        <div>
+                          <div className="text-warning font-bold">응답 예정</div>
+                          <div className="text-sm text-muted-foreground">{expert.responseTime}</div>
+                        </div>
+                      )}
+                    </div>
+                  </div>
+                ))}
+              </div>
+            </div>
+          </div>
+        )}
+
+        {currentTab === 'workflows' && <WorkflowLibrary />}
+
+        {currentTab === 'growth' && <GrowthTracker />}
+
         {currentTab === 'algorithm' && (
           <div className="space-y-6">
             <AlgorithmViewer />
@@ -577,6 +688,36 @@ Prompt chaining으로 AI에게 '의도'를 시뮬레이션하게 할 수 있습�
                       <span className="text-foreground">{pattern}</span>
                     </div>
                   ))}
+                </div>
+              </div>
+            </div>
+
+            {/* Meta System Evolution */}
+            <div className="nexus-card p-6">
+              <h3 className="text-lg font-bold text-foreground mb-4">🧠 메타 시스템 진화</h3>
+              <div className="bg-accent/5 rounded-lg p-4">
+                <h4 className="font-bold text-accent mb-3">달의이성님의 비전 구현</h4>
+                <p className="text-sm text-foreground mb-4">
+                  <strong>"변화 → 적응 → 시스템 변화 → 진화"</strong>의 완전한 구현. 
+                  시스템이 자신을 개선하는 방법을 스스로 학습합니다.
+                </p>
+                <div className="grid grid-cols-1 md:grid-cols-4 gap-4 text-center">
+                  <div className="p-3 bg-background rounded-lg">
+                    <div className="text-lg font-bold text-primary">변화 감지</div>
+                    <div className="text-xs text-muted-foreground">사용자 패턴 인식</div>
+                  </div>
+                  <div className="p-3 bg-background rounded-lg">
+                    <div className="text-lg font-bold text-success">적응</div>
+                    <div className="text-xs text-muted-foreground">알고리즘 조정</div>
+                  </div>
+                  <div className="p-3 bg-background rounded-lg">
+                    <div className="text-lg font-bold text-warning">시스템 변화</div>
+                    <div className="text-xs text-muted-foreground">구조적 개선</div>
+                  </div>
+                  <div className="p-3 bg-background rounded-lg">
+                    <div className="text-lg font-bold text-secondary">진화</div>
+                    <div className="text-xs text-muted-foreground">새로운 능력 창발</div>
+                  </div>
                 </div>
               </div>
             </div>
