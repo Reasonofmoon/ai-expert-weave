@@ -271,7 +271,12 @@ export const WorkflowLibrary: React.FC<WorkflowLibraryProps> = () => {
             {workflow.steps.length}단계
           </div>
         </div>
-        <button className="bg-primary text-primary-foreground px-4 py-2 rounded-lg hover:bg-primary/90 transition-colors">
+        <button 
+          onClick={(e) => {
+            e.stopPropagation();
+            setSelectedWorkflow(workflow);
+          }}
+          className="bg-primary text-primary-foreground px-4 py-2 rounded-lg hover:bg-primary/90 transition-colors">
           <Play size={14} className="mr-2 inline" />
           시작하기
         </button>
@@ -400,7 +405,11 @@ export const WorkflowLibrary: React.FC<WorkflowLibraryProps> = () => {
           >
             닫기
           </button>
-          <button className="px-6 py-2 bg-primary text-primary-foreground rounded-lg hover:bg-primary/90 transition-colors">
+          <button 
+            onClick={() => {
+              alert(`"${workflow.title}" 워크플로우를 시작합니다!\n\n첫 번째 단계: ${workflow.steps[0].title}\n소요시간: ${workflow.steps[0].estimatedTime}\n\n실제 구현 시 여기서 워크플로우 실행 화면으로 이동합니다.`);
+            }}
+            className="px-6 py-2 bg-primary text-primary-foreground rounded-lg hover:bg-primary/90 transition-colors">
             <Play size={16} className="mr-2 inline" />
             워크플로우 시작
           </button>
