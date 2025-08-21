@@ -227,35 +227,191 @@ export const GoogleSheetsDataTable = ({
         </Card>
       )}
 
-      {/* 사용 가이드 */}
+      {/* 구글 시트 생성 가이드 */}
       {data.length === 0 && (
         <Card>
           <CardHeader>
-            <CardTitle>사용 방법</CardTitle>
+            <CardTitle className="flex items-center gap-2">
+              📝 구글 시트 생성 및 연결 가이드
+            </CardTitle>
+            <CardDescription>
+              처음부터 구글 시트를 만들어 연결하는 방법을 안내합니다
+            </CardDescription>
           </CardHeader>
-          <CardContent className="space-y-4">
-            <div className="space-y-2">
-              <h4 className="font-semibold">1. 구글 시트 준비</h4>
-              <ul className="list-disc list-inside text-sm text-muted-foreground ml-4">
-                <li>구글 시트에서 데이터를 준비합니다</li>
-                <li>첫 번째 행은 컬럼 헤더로 사용됩니다</li>
+          <CardContent className="space-y-6">
+            {/* 1단계: 구글 시트 생성 */}
+            <div className="space-y-3 p-4 bg-muted/50 rounded-lg">
+              <h4 className="font-semibold text-primary flex items-center gap-2">
+                🚀 1단계: 새 구글 시트 생성
+              </h4>
+              <ul className="space-y-2 text-sm text-muted-foreground">
+                <li className="flex items-start gap-2">
+                  <span className="text-primary">•</span>
+                  <span>
+                    <a 
+                      href="https://sheets.google.com" 
+                      target="_blank" 
+                      rel="noopener noreferrer"
+                      className="text-primary hover:underline font-medium"
+                    >
+                      Google Sheets (sheets.google.com)
+                    </a>
+                    에 접속하세요
+                  </span>
+                </li>
+                <li className="flex items-start gap-2">
+                  <span className="text-primary">•</span>
+                  <span>"+ 새로 만들기" 또는 "빈 스프레드시트" 클릭</span>
+                </li>
+                <li className="flex items-start gap-2">
+                  <span className="text-primary">•</span>
+                  <span>시트에 의미있는 이름을 지어주세요 (예: "일일 화두 데이터")</span>
+                </li>
               </ul>
             </div>
 
-            <div className="space-y-2">
-              <h4 className="font-semibold">2. 시트 공유 설정</h4>
-              <ul className="list-disc list-inside text-sm text-muted-foreground ml-4">
-                <li>시트 우상단 "공유" 버튼 클릭</li>
-                <li>"링크가 있는 모든 사용자"로 설정</li>
-                <li>"뷰어" 권한으로 설정</li>
+            {/* 2단계: 데이터 구조 설정 */}
+            <div className="space-y-3 p-4 bg-muted/50 rounded-lg">
+              <h4 className="font-semibold text-primary flex items-center gap-2">
+                📊 2단계: 데이터 구조 설정
+              </h4>
+              <div className="space-y-3">
+                <p className="text-sm text-muted-foreground">
+                  첫 번째 행에 컬럼 헤더를 입력하세요. 예시:
+                </p>
+                <div className="bg-background p-3 rounded border font-mono text-sm">
+                  <div className="grid grid-cols-5 gap-2 text-center">
+                    <div className="bg-primary/10 p-2 rounded">날짜</div>
+                    <div className="bg-primary/10 p-2 rounded">제목</div>
+                    <div className="bg-primary/10 p-2 rounded">카테고리</div>
+                    <div className="bg-primary/10 p-2 rounded">난이도</div>
+                    <div className="bg-primary/10 p-2 rounded">상태</div>
+                  </div>
+                </div>
+                <ul className="space-y-1 text-sm text-muted-foreground">
+                  <li className="flex items-start gap-2">
+                    <span className="text-primary">•</span>
+                    <span>두 번째 행부터 실제 데이터를 입력하세요</span>
+                  </li>
+                  <li className="flex items-start gap-2">
+                    <span className="text-primary">•</span>
+                    <span>컬럼 이름은 한글이나 영문 모두 가능합니다</span>
+                  </li>
+                </ul>
+              </div>
+            </div>
+
+            {/* 3단계: 공유 설정 */}
+            <div className="space-y-3 p-4 bg-muted/50 rounded-lg">
+              <h4 className="font-semibold text-primary flex items-center gap-2">
+                🔗 3단계: 공유 설정 (중요!)
+              </h4>
+              <ul className="space-y-2 text-sm text-muted-foreground">
+                <li className="flex items-start gap-2">
+                  <span className="text-primary">•</span>
+                  <span>시트 우상단의 <span className="bg-primary/20 px-1 rounded">공유</span> 버튼을 클릭하세요</span>
+                </li>
+                <li className="flex items-start gap-2">
+                  <span className="text-primary">•</span>
+                  <span>"일반 액세스" 섹션에서 <span className="bg-primary/20 px-1 rounded">제한됨</span>을 클릭</span>
+                </li>
+                <li className="flex items-start gap-2">
+                  <span className="text-primary">•</span>
+                  <span><span className="bg-primary/20 px-1 rounded">링크가 있는 모든 사용자</span>를 선택</span>
+                </li>
+                <li className="flex items-start gap-2">
+                  <span className="text-primary">•</span>
+                  <span>권한을 <span className="bg-primary/20 px-1 rounded">뷰어</span>로 설정</span>
+                </li>
+                <li className="flex items-start gap-2">
+                  <span className="text-primary">•</span>
+                  <span><span className="bg-primary/20 px-1 rounded">완료</span> 버튼을 클릭</span>
+                </li>
               </ul>
             </div>
 
-            <div className="space-y-2">
-              <h4 className="font-semibold">3. URL 복사 및 연결</h4>
-              <ul className="list-disc list-inside text-sm text-muted-foreground ml-4">
-                <li>시트 URL을 복사하여 위 입력창에 붙여넣기</li>
-                <li>"데이터 불러오기" 버튼 클릭</li>
+            {/* 4단계: URL 복사 및 연결 */}
+            <div className="space-y-3 p-4 bg-muted/50 rounded-lg">
+              <h4 className="font-semibold text-primary flex items-center gap-2">
+                📎 4단계: URL 복사 및 연결
+              </h4>
+              <ul className="space-y-2 text-sm text-muted-foreground">
+                <li className="flex items-start gap-2">
+                  <span className="text-primary">•</span>
+                  <span>브라우저 주소창의 URL을 복사하세요</span>
+                </li>
+                <li className="flex items-start gap-2">
+                  <span className="text-primary">•</span>
+                  <span>위 "구글 시트 URL" 입력창에 붙여넣기</span>
+                </li>
+                <li className="flex items-start gap-2">
+                  <span className="text-primary">•</span>
+                  <span>"데이터 불러오기" 버튼을 클릭</span>
+                </li>
+                <li className="flex items-start gap-2">
+                  <span className="text-primary">•</span>
+                  <span>성공적으로 연결되면 데이터가 테이블에 표시됩니다!</span>
+                </li>
+              </ul>
+            </div>
+
+            {/* 샘플 데이터 */}
+            <div className="space-y-3 p-4 bg-success/10 rounded-lg border border-success/20">
+              <h4 className="font-semibold text-success flex items-center gap-2">
+                💡 샘플 데이터 예시
+              </h4>
+              <div className="text-sm text-muted-foreground space-y-2">
+                <p>테스트용 샘플 데이터를 만들어보세요:</p>
+                <div className="bg-background p-3 rounded border">
+                  <table className="w-full text-xs">
+                    <thead>
+                      <tr className="border-b">
+                        <th className="text-left p-1">날짜</th>
+                        <th className="text-left p-1">제목</th>
+                        <th className="text-left p-1">카테고리</th>
+                        <th className="text-left p-1">난이도</th>
+                        <th className="text-left p-1">상태</th>
+                      </tr>
+                    </thead>
+                    <tbody className="text-muted-foreground">
+                      <tr>
+                        <td className="p-1">2024-08-21</td>
+                        <td className="p-1">AI와 창의적 협업</td>
+                        <td className="p-1">Creative</td>
+                        <td className="p-1">8</td>
+                        <td className="p-1">활성</td>
+                      </tr>
+                      <tr>
+                        <td className="p-1">2024-08-20</td>
+                        <td className="p-1">프롬프트 최적화</td>
+                        <td className="p-1">Technical</td>
+                        <td className="p-1">6</td>
+                        <td className="p-1">완료</td>
+                      </tr>
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+            </div>
+
+            {/* 문제 해결 */}
+            <div className="space-y-3 p-4 bg-warning/10 rounded-lg border border-warning/20">
+              <h4 className="font-semibold text-warning flex items-center gap-2">
+                🔧 문제 해결
+              </h4>
+              <ul className="space-y-2 text-sm text-muted-foreground">
+                <li className="flex items-start gap-2">
+                  <span className="text-warning">⚠️</span>
+                  <span><strong>데이터를 불러올 수 없다면:</strong> 시트가 "링크가 있는 모든 사용자"로 공유되었는지 확인</span>
+                </li>
+                <li className="flex items-start gap-2">
+                  <span className="text-warning">⚠️</span>
+                  <span><strong>빈 테이블이 나온다면:</strong> 첫 번째 행에 컬럼 헤더가 있는지 확인</span>
+                </li>
+                <li className="flex items-start gap-2">
+                  <span className="text-warning">⚠️</span>
+                  <span><strong>업데이트가 안 된다면:</strong> "새로고침" 버튼을 눌러보세요</span>
+                </li>
               </ul>
             </div>
           </CardContent>
