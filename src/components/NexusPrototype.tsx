@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer, BarChart, Bar, Cell } from 'recharts';
-import { Brain, Users, Zap, TrendingUp, MessageCircle, CheckCircle, AlertTriangle, Search, Filter, Eye, GitBranch, Workflow, Target, Database, Table } from 'lucide-react';
+import { Brain, Users, Zap, TrendingUp, MessageCircle, CheckCircle, AlertTriangle, Search, Filter, Eye, GitBranch, Workflow, Target, Database, Table, ExternalLink } from 'lucide-react';
 
 import { MetricCard } from './dashboard/MetricCard';
 import { ExpertCard } from './experts/ExpertCard';
@@ -11,6 +11,7 @@ import { WorkflowLibrary } from './workflows/WorkflowLibrary';
 import { GrowthTracker } from './growth/GrowthTracker';
 import { ExpertDataTable } from './data/ExpertDataTable';
 import { KnowledgeDataTable } from './data/KnowledgeDataTable';
+import { GoogleSheetsDataTable } from './data/GoogleSheetsDataTable';
 
 export const NexusPrototype = () => {
   // State management
@@ -333,6 +334,13 @@ Prompt chaining으로 AI에게 '의도'를 시뮬레이션하게 할 수 있습�
               icon={Brain}
               isActive={currentTab === 'algorithm'}
               onClick={() => setCurrentTab('algorithm')}
+            />
+            <TabButton
+              tab="googlesheets"
+              label="구글 시트"
+              icon={ExternalLink}
+              isActive={currentTab === 'googlesheets'}
+              onClick={() => setCurrentTab('googlesheets')}
             />
           </div>
         </div>
@@ -740,6 +748,15 @@ Prompt chaining으로 AI에게 '의도'를 시뮬레이션하게 할 수 있습�
                 </div>
               </div>
             </div>
+          </div>
+        )}
+
+        {currentTab === 'googlesheets' && (
+          <div className="space-y-6">
+            <GoogleSheetsDataTable 
+              title="구글 시트 연동 데이터"
+              description="실시간으로 동기화되는 구글 시트 데이터를 확인하세요"
+            />
           </div>
         )}
       </main>
