@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer, BarChart, Bar, Cell } from 'recharts';
-import { Brain, Users, Zap, TrendingUp, MessageCircle, CheckCircle, AlertTriangle, Search, Filter, Eye, GitBranch, Workflow, Target } from 'lucide-react';
+import { Brain, Users, Zap, TrendingUp, MessageCircle, CheckCircle, AlertTriangle, Search, Filter, Eye, GitBranch, Workflow, Target, Database, Table } from 'lucide-react';
 
 import { MetricCard } from './dashboard/MetricCard';
 import { ExpertCard } from './experts/ExpertCard';
@@ -9,6 +9,8 @@ import { TabButton } from './common/TabButton';
 import { ResponseModal } from './modals/ResponseModal';
 import { WorkflowLibrary } from './workflows/WorkflowLibrary';
 import { GrowthTracker } from './growth/GrowthTracker';
+import { ExpertDataTable } from './data/ExpertDataTable';
+import { KnowledgeDataTable } from './data/KnowledgeDataTable';
 
 export const NexusPrototype = () => {
   // State management
@@ -317,6 +319,13 @@ Prompt chaining으로 AI에게 '의도'를 시뮬레이션하게 할 수 있습�
               icon={Target}
               isActive={currentTab === 'growth'}
               onClick={() => setCurrentTab('growth')}
+            />
+            <TabButton
+              tab="datatables"
+              label="데이터 테이블"
+              icon={Table}
+              isActive={currentTab === 'datatables'}
+              onClick={() => setCurrentTab('datatables')}
             />
             <TabButton
               tab="algorithm"
@@ -653,6 +662,16 @@ Prompt chaining으로 AI에게 '의도'를 시뮬레이션하게 할 수 있습�
         {currentTab === 'workflows' && <WorkflowLibrary />}
 
         {currentTab === 'growth' && <GrowthTracker />}
+
+        {currentTab === 'datatables' && (
+          <div className="space-y-6">
+            {/* Expert Data Table */}
+            <ExpertDataTable experts={experts} />
+            
+            {/* Knowledge Data Table */}
+            <KnowledgeDataTable knowledgeNodes={knowledgeNodes} />
+          </div>
+        )}
 
         {currentTab === 'algorithm' && (
           <div className="space-y-6">
