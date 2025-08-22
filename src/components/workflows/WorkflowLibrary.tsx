@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { Play, Clock, Users, TrendingUp, Star, BookOpen, ArrowRight } from 'lucide-react';
+import { WorkflowRunner } from './WorkflowRunner';
 
 interface WorkflowStep {
   id: string;
@@ -225,6 +226,7 @@ interface WorkflowLibraryProps {}
 
 export const WorkflowLibrary: React.FC<WorkflowLibraryProps> = () => {
   const [selectedWorkflow, setSelectedWorkflow] = useState<Workflow | null>(null);
+  const [runningWorkflow, setRunningWorkflow] = useState<Workflow | null>(null);
   const [filter, setFilter] = useState('all');
 
   const filteredWorkflows = workflows.filter(workflow => 
@@ -274,7 +276,7 @@ export const WorkflowLibrary: React.FC<WorkflowLibraryProps> = () => {
         <button 
           onClick={(e) => {
             e.stopPropagation();
-            setSelectedWorkflow(workflow);
+            setRunningWorkflow(workflow);
           }}
           className="bg-primary text-primary-foreground px-4 py-2 rounded-lg hover:bg-primary/90 transition-colors">
           <Play size={14} className="mr-2 inline" />
@@ -407,7 +409,8 @@ export const WorkflowLibrary: React.FC<WorkflowLibraryProps> = () => {
           </button>
           <button 
             onClick={() => {
-              alert(`"${workflow.title}" 워크플로우를 시작합니다!\n\n첫 번째 단계: ${workflow.steps[0].title}\n소요시간: ${workflow.steps[0].estimatedTime}\n\n실제 구현 시 여기서 워크플로우 실행 화면으로 이동합니다.`);
+              setSelectedWorkflow(null);
+              setRunningWorkflow(workflow);
             }}
             className="px-6 py-2 bg-primary text-primary-foreground rounded-lg hover:bg-primary/90 transition-colors">
             <Play size={16} className="mr-2 inline" />
@@ -476,6 +479,12 @@ export const WorkflowLibrary: React.FC<WorkflowLibraryProps> = () => {
       </div>
 
       {selectedWorkflow && <WorkflowDetail workflow={selectedWorkflow} />}
+      {runningWorkflow && (
+        <WorkflowRunner 
+          workflow={runningWorkflow} 
+          onClose={() => setRunningWorkflow(null)} 
+        />
+      )}
     </div>
   );
 };
